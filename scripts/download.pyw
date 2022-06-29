@@ -12,9 +12,6 @@ ydl_opts = {
         'preferredcodec': 'wav',
         'preferredquality': '192',
     }],
-    'postprocessor_args': [
-        '-ar', '16000'
-    ],
     'prefer_ffmpeg': True,
     'keepvideo': True
 }
@@ -25,7 +22,7 @@ if exists('./audio/' + sys.argv[1] + '.wav'):
     pop.attributes("-topmost", True)
     labelBonus = Label(pop, text="   Song allready exist:   ")
     labelBonus.pack(pady=10)
-    labelBonus = Label(pop, text=f'/audio/{sys.argv[1]}.wav')
+    labelBonus = Label(pop, text=f'   /audio/{sys.argv[1]}.wav   ')
     labelBonus.pack(pady=10)
     B1 = Button(pop, text="Okay", command=pop.destroy)
     B1.pack(pady=10)
@@ -48,3 +45,5 @@ else:
         labelBonus.pack(pady=10)
         B1 = Button(pop, text="Okay", command=pop.destroy)
         B1.pack(pady=10)
+
+mainloop()
