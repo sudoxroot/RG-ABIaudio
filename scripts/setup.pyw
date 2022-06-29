@@ -7,7 +7,7 @@ from os.path import exists
 
 from sympy import li
 master = Tk()
-master.geometry("500x400")
+master.geometry("300x200")
 master.title("RG-ABI audio Setup")
 master.iconbitmap("./scripts/mainIcon.ico")
 
@@ -61,12 +61,13 @@ def downloadAudio():
                 else:
                     time = lines[i+1].split("?t=")[-1]
                 # print("python3 .\scripts\download.pyw " + str(i/3).split(".")[0] + "-" + str(time) + "-" + lines[i+2].replace(" ", "_").rstrip() + " " + lines[i])
-                os.system("python3 .\scripts\download.pyw " + str(i/3).split(".")[0] + "_"  + lines[i+2].replace(" ", "_").rstrip() + "_" + str(time) + " " + lines[i])
+                subprocess.Popen("python3 .\scripts\download.pyw " + str(i/3).split(".")[0] + "-" + str(time) + "-" + lines[i+2].replace(" ", "_").rstrip() + " " + lines[i], shell=False, stdout=None)
+                # os.system("python3 .\scripts\download.pyw " + str(i/3).split(".")[0] + "_"  + lines[i+2].replace(" ", "_").rstrip() + "_" + str(time) + " " + lines[i])
             popupBonusWindow = Tk()
             popupBonusWindow.wm_title("Info")
             popupBonusWindow.iconbitmap("./scripts/mainIcon.ico")
             popupBonusWindow.attributes("-topmost", True)
-            labelBonus = Label(popupBonusWindow, text="   Audio files were created   ")
+            labelBonus = Label(popupBonusWindow, text="   Audio files download in backgorund   ")
             labelBonus.pack(pady = 10)
             B1 = Button(popupBonusWindow, text="Okay", command=popupBonusWindow.destroy)
             B1.pack(pady = 10)
