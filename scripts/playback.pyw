@@ -122,8 +122,18 @@ def textUpdate(*args):
         inputtxt.delete(0, END)
 
 def goBack():
-    master.destroy()
-    os.system("python3 .\index.pyw")
+    if playingFile:
+        pop = Tk()
+        pop.wm_title("Info")
+        pop.iconbitmap("./scripts/mainIcon.ico")
+        pop.attributes("-topmost", True)
+        labelBonus = Label(pop, text="   Stop song before exiting Playback   ")
+        labelBonus.pack(pady=10)
+        B1 = Button(pop, text="Okay", command=pop.destroy)
+        B1.pack(pady=10)    
+    else:
+        master.destroy()
+        os.system("python3 .\index.pyw")
 
             
 var_inputtxt = StringVar()
