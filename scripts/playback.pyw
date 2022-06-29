@@ -53,21 +53,40 @@ def playSound():
                 playingFile = ""
 
 def loadSound():
-    global selectedFile, loadedFile, loadedTime
-    loadedFile = selectedFile
-    loadedTime = selectedFile.split("-")[1]
-    print(loadedTime)
-    lbll.config(text = "Loaded: " + loadedFile)
-    lbll2.config(text = loadedFile)
-    time.sleep(0.01)
-    lbll2t.delete(0, END)
-    time.sleep(0.01)
-    lbll2t.insert(0,loadedTime)
+    global selectedFile, loadedFile, loadedTime, playingFile
+    if playingFile:
+        pop = Tk()
+        pop.wm_title("Info")
+        pop.iconbitmap("./scripts/mainIcon.ico")
+        pop.attributes("-topmost", True)
+        labelBonus = Label(pop, text="   Stop song before loading new song   ")
+        labelBonus.pack(pady=10)
+        B1 = Button(pop, text="Okay", command=pop.destroy)
+        B1.pack(pady=10)    
+    else:
+        loadedFile = selectedFile
+        loadedTime = selectedFile.split("-")[1]
+        lbll2.config(text = loadedFile)
+        time.sleep(0.01)
+        lbll2t.delete(0, END)
+        time.sleep(0.01)
+        lbll2t.insert(0,loadedTime)
+        path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
+        filenames = next(walk(path + "/audio/"), (None, None, []))[2]  # [] if no file
+        try:
+            item = str(int(selectedFile.split("-")[0])+1)
+            file = [i for i in filenames if i.startswith(item)][0]
+            lbls.config(text = file)
+            lbls.config(text = file)
+            selectedFile = file
+            inputtxt.delete(0, END)
+            inputtxt.insert(0,item)
+        except:
+            inputtxt.delete(0, END)
         
 def timeUpdate(*args):
     global loadedTime
     item = var_lbll2t.get()
-    print(item)
     if not item:
         item = loadedTime
     try:
@@ -117,8 +136,6 @@ playbtn = Button(master, text ="Load", command = loadSound)
 playbtn.grid(column=2, row=1, sticky=W, padx=5, pady=5)
 lbls = Label(master, text = "")
 lbls.grid(column=1, row=2, sticky=W)
-lbll = Label(master, text = "")
-lbll.grid(column=3, row=1, sticky=W, padx=5, pady=5)
 L1 = Label(master, text="Play")
 L1.config(font=("Courier", 21))
 L1.grid(column=0, row=3, sticky=NW, padx=5, pady=5)
