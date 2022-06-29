@@ -121,7 +121,10 @@ def textUpdate(*args):
     except:
         inputtxt.delete(0, END)
 
-    
+def goBack():
+    master.destroy()
+    os.system("python3 .\index.pyw")
+
             
 var_inputtxt = StringVar()
 var_lbll2t = StringVar()
@@ -149,6 +152,8 @@ lbll2t = Entry(master, width=20,  textvariable=var_lbll2t)
 lbll2t.grid(column=1, row=5, sticky=W, padx=5, pady=5)
 playbtn = Button(master, text ="Play", width=20, command = playSound)
 playbtn.grid(column=1, row=6, sticky=W, padx=5, pady=5)
+backbtn = Button(master, text ="Back", command = goBack)
+backbtn.grid(column=0, row=8, sticky=W, padx=5, pady=5)
 
 
 var_inputtxt.trace("w", textUpdate)
