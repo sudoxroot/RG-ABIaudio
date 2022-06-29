@@ -26,6 +26,10 @@ def openEditor():
         B1.pack(pady = 10)
     webbrowser.open("links.conf")
 
+def goBack():
+    master.destroy()
+    os.system("python3 .\index.pyw")
+
 
 def downloadAudio():
     if not exists("links.conf"):
@@ -77,5 +81,7 @@ L1.pack(pady = 10)
 btn = Button(master, text ="Open Editor", command = openEditor)
 btn.pack(pady = 10)
 btn = Button(master, text ="Create Audio Files", command = downloadAudio)
+btn.pack(pady = 10)
+btn = Button(master, text ="Back", command = goBack)
 btn.pack(pady = 10)
 master.mainloop()
